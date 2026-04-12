@@ -9,7 +9,7 @@ function TicketForm({ refresh }) {
   const [submittedText, setSubmittedText] = useState("");
 
   const send = async () => {
-    const r = await fetch(`${process.env.REACT_APP_API_URL}/...`, {
+    const r = await fetch("https://ai-ticketing-1.onrender.com/ticket", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ description: text })
