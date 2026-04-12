@@ -29,9 +29,8 @@ function Tickets() {
     }
   };
 
-  useEffect(() => {
     load();
-  }, [load]);
+  }, [status]);
 
   // ✅ escalation API
   useEffect(() => {
