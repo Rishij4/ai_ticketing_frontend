@@ -6,19 +6,6 @@ function Tickets() {
   const [allTickets, setAllTickets] = useState([]);
   const [status, setStatus] = useState("All");
 
-  const load = async () => {
-    const r = await fetch("https://ai-ticketing-1.onrender.com/tickets");
-    const data = await r.json();
-
-    setAllTickets(data);
-
-    if (status === "All") {
-      setTickets(data);
-    } else {
-      setTickets(data.filter(t => t.status === status));
-    }
-  };
-
   const filterTickets = (value) => {
     setStatus(value);
 
@@ -29,10 +16,25 @@ function Tickets() {
     }
   };
 
-    load();
-  }, [status]);
+  // ✅ FIX: move load inside useEffect
+  useEffect(() => {
+    const load = async () => {
+      const r = await fetch("https://ai-ticketing-1.onrender.com/tickets");
+      const data = await r.json();
 
-  // ✅ escalation API
+      setAllTickets(data);
+
+      if (status === "All") {
+        setTickets(data);
+      } else {
+        setTickets(data.filter(t => t.status === status));
+      }
+    };
+
+    load();
+  }, [status]); // ✅ dependency fixed
+
+  // escalation API
   useEffect(() => {
     const interval = setInterval(() => {
       fetch("https://ai-ticketing-1.onrender.com/escalate");
@@ -42,24 +44,24 @@ function Tickets() {
   }, []);
 
   return (
-  <div style={{width: "100%", display: "flex", justifyContent: "center" }}>
-    <div style={{ width: "100%", maxWidth: "900px", margin: "0 auto" }}>
-    <h1 style={{ textAlign: "center" }}>Tickets</h1>
+    <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div style={{ width: "100%", maxWidth: "900px", margin: "0 auto" }}>
+        <h1 style={{ textAlign: "center" }}>Tickets</h1>
 
-    <div style={{ textAlign: "center", marginBottom: "20px" }}>
-    <select onChange={(e) => filterTickets(e.target.value)}>
-      <option>All</option>
-      <option>New</option>
-      <option>Assigned</option>
-      <option>Resolved</option>
-      <option>Closed</option>
-    </select>
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <select onChange={(e) => filterTickets(e.target.value)}>
+            <option>All</option>
+            <option>New</option>
+            <option>Assigned</option>
+            <option>Resolved</option>
+            <option>Closed</option>
+          </select>
+        </div>
+
+        <TicketTable tickets={tickets} />
+      </div>
     </div>
-
-    <TicketTable tickets={tickets} />
-  </div>
-  </div>
-);
+  );
 }
 
 export default Tickets;
