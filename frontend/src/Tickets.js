@@ -31,12 +31,12 @@ function Tickets() {
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   // ✅ escalation API
   useEffect(() => {
     const interval = setInterval(() => {
-      fetch("http://127.0.0.1:8000/escalate");
+      fetch("https://ai-ticketing-1.onrender.com/escalate");
     }, 60000);
 
     return () => clearInterval(interval);
