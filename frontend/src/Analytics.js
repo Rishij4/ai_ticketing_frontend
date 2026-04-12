@@ -9,7 +9,7 @@ function Analytics() {
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/...`)
+    fetch("https://ai-ticketing-1.onrender.com/tickets")
       .then(res => res.json())
       .then(data => setTickets(data));
   }, []);
