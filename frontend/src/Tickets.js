@@ -8,7 +8,7 @@ function Tickets() {
   const [status, setStatus] = useState("All");
 
   const load = async () => {
-    const r = await fetch(`${process.env.REACT_APP_API_URL}/...`);
+    const r = await fetch("https://ai-ticketing-1.onrender.com/tickets");
     const data = await r.json();
 
     setAllTickets(data);
