@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import TicketForm from "./TicketForm";
 import TicketTable from "./TicketTable";
 
 function Tickets() {
