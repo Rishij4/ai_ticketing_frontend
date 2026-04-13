@@ -108,10 +108,26 @@ function TicketForm({ refresh }) {
           <p><b>Confidence:</b> {res.confidence}%</p>
           <p><b>ETA:</b> {res.time_estimate}</p>
 
-          <p><b>Was this helpful?</b></p>
-
-          <button onClick={() => sendFeedback("yes")} disabled={feedbackGiven}>👍 Yes</button>
-          <button onClick={() => sendFeedback("no")} disabled={feedbackGiven}>👎 No</button>
+          {/* Inside the res && block of TicketForm.js */}
+<div className="feedback-section">
+  <p><strong>Was this helpful?</strong></p>
+  <div className="feedback-buttons">
+    <button 
+      className="btn-yes" 
+      onClick={() => sendFeedback("yes")} 
+      disabled={feedbackGiven}
+    >
+      👍 Yes
+    </button>
+    <button 
+      className="btn-no" 
+      onClick={() => sendFeedback("no")} 
+      disabled={feedbackGiven}
+    >
+      👎 No
+    </button>
+  </div>
+</div>
 
           <p>{feedbackMsg}</p>
         </div>
