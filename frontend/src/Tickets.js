@@ -31,7 +31,7 @@ function Tickets() {
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   useEffect(() => {
     const interval = setInterval(() => {
