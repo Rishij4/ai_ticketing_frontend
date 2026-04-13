@@ -4,7 +4,7 @@ function Admin() {
   const [tickets, setTickets] = useState([]);
 
   const load = () => {
-    fetch("http://127.0.0.1:8000/tickets")
+    fetch("https://ai-ticketing-1.onrender.com/tickets")
       .then(res => res.json())
       .then(data => setTickets(data));
   };
@@ -15,7 +15,7 @@ function Admin() {
 
   // 🗑 DELETE
   const deleteTicket = (id) => {
-    fetch(`http://127.0.0.1:8000/delete_ticket/${id}`, {
+    fetch(`https://ai-ticketing-1.onrender.com/delete_ticket/${id}`, {
       method: "DELETE"
     }).then(() => load());
   };
@@ -25,7 +25,7 @@ function Admin() {
     const newStatus = prompt("Enter new status:");
     if (!newStatus) return;
 
-    fetch(`http://127.0.0.1:8000/update_ticket/${id}`, {
+    fetch(`https://ai-ticketing-1.onrender.com/update_ticket/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
