@@ -6,6 +6,19 @@ function Tickets() {
   const [allTickets, setAllTickets] = useState([]);
   const [status, setStatus] = useState("All");
 
+  const load = async () => {
+    const r = await fetch("https://ai-ticketing-1.onrender.com/tickets");
+    const data = await r.json();
+
+    setAllTickets(data);
+
+    if (status === "All") {
+      setTickets(data);
+    } else {
+      setTickets(data.filter(t => t.status === status));
+    }
+  };
+
   const filterTickets = (value) => {
     setStatus(value);
 
@@ -16,25 +29,10 @@ function Tickets() {
     }
   };
 
-  // ✅ FIX: move load inside useEffect
   useEffect(() => {
-    const load = async () => {
-      const r = await fetch("https://ai-ticketing-1.onrender.com/tickets");
-      const data = await r.json();
-
-      setAllTickets(data);
-
-      if (status === "All") {
-        setTickets(data);
-      } else {
-        setTickets(data.filter(t => t.status === status));
-      }
-    };
-
     load();
-  }, [status]); // ✅ dependency fixed
+  }, []);
 
-  // escalation API
   useEffect(() => {
     const interval = setInterval(() => {
       fetch("https://ai-ticketing-1.onrender.com/escalate");
@@ -44,12 +42,27 @@ function Tickets() {
   }, []);
 
   return (
-    <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-      <div style={{ width: "100%", maxWidth: "900px", margin: "0 auto" }}>
-        <h1 style={{ textAlign: "center" }}>Tickets</h1>
-
-        <div style={{ textAlign: "center", marginBottom: "20px" }}>
-          <select onChange={(e) => filterTickets(e.target.value)}>
+    /* Change 1: Remove justifyContent: "center" to let content align left */
+    <div style={{ width: "100%", padding: "20px", display: "flex", flexDirection: "column" }}>
+      <div style={{ width: "100%", maxWidth: "1200px" }}>
+        
+        {/* Change 2: Wrap heading and select in a left-aligned div */}
+        <div style={{ textAlign: "left", marginBottom: "30px" }}>
+          <h1 style={{ margin: "0 0 10px 0", fontSize: "2.5rem", color: "#1e293b" }}>
+            Tickets
+          </h1>
+          
+          <select 
+            onChange={(e) => filterTickets(e.target.value)}
+            style={{ 
+              padding: "8px 16px", 
+              borderRadius: "8px", 
+              border: "1px solid #cbd5e1",
+              fontSize: "1rem",
+              cursor: "pointer",
+              background: "white"
+            }}
+          >
             <option>All</option>
             <option>New</option>
             <option>Assigned</option>
@@ -58,7 +71,14 @@ function Tickets() {
           </select>
         </div>
 
-        <TicketTable tickets={tickets} />
+        {/* Change 3: Keep the table as is, but ensure its container doesn't force centering */}
+        <div className="table-wrapper">
+          {tickets.length === 0 ? (
+            <p style={{ textAlign: "left", color: "#64748b" }}>📭 No tickets available</p>
+          ) : (
+            <TicketTable tickets={tickets} />
+          )}
+        </div>
       </div>
     </div>
   );
