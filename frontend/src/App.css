@@ -1,17 +1,32 @@
-/* ===== GLOBAL ===== */
+/* ===== GLOBAL VARIABLES ===== */
+:root {
+  --primary: #4f46e5;
+  --bg-light: #f8fafc;
+  --sidebar-bg: #1e293b;
+  --card-bg: #ffffff;
+  --text-main: #334155;
+  --border: #e2e8f0;
+}
+
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #f4f6fb;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-main);
 }
 
 /* Layout */
 .main-content {
-  margin-left: 260px;
+  margin-left: 240px;
   padding: 40px;
-
+  width: 100%;
   display: flex;
-  justify-content: center;   /* 🔥 CENTER EVERYTHING */
+  justify-content: center;
+}
+
+.container {
+  max-width: 1100px;
+  width: 100%;
 }
 
 /* ===== SIDEBAR ===== */
@@ -19,142 +34,287 @@ body {
   width: 240px;
   height: 100vh;
   position: fixed;
-  background: linear-gradient(180deg, #0f172a, #1e293b);
+  background: var(--sidebar-bg);
   color: white;
-  padding: 20px;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
 .sidebar h2 {
-  margin-bottom: 30px;
+  font-size: 1.5rem;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .sidebar a {
   display: block;
-  padding: 12px;
-  border-radius: 10px;
-  color: #cbd5f5;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #94a3b8;
   text-decoration: none;
-  margin-bottom: 10px;
-  transition: 0.3s;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
 }
 
 .sidebar a:hover {
-  background: #2563eb;
+  background: rgba(255, 255, 255, 0.1);
   color: white;
 }
 
 /* ===== DASHBOARD CARDS ===== */
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* FORCE 4 IN A ROW */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .card {
-  background: white;
-  padding: 22px;
-  border-radius: 18px;
-  box-shadow: 0px 10px 30px rgba(0,0,0,0.06);
-  transition: 0.3s;
-  width: 190px; 
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
-.card:hover {
-  transform: translateY(-6px);
-}
+.card:hover { transform: translateY(-4px); }
 
 .card h3 {
-  color: #666;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  color: #64748b;
+  margin: 0 0 10px 0;
 }
 
 .card p {
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--primary);
 }
 
-/* Colored borders */
-.total { border-left: 5px solid #3b82f6; }
-.new { border-left: 5px solid #f59e0b; }
-.assigned { border-left: 5px solid #6366f1; }
-.resolved { border-left: 5px solid #22c55e; }
-
-/* ===== TABLE ===== */
+/* ===== MODERN TABLES ===== */
 .table-container {
   background: white;
-  padding: 20px;
-  border-radius: 16px;
-  margin-top: 20px;
-  box-shadow: 0px 8px 25px rgba(0,0,0,0.05);
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-top: 30px;
+  overflow-x: auto;
 }
 
 .modern-table {
   width: 100%;
   border-collapse: collapse;
+  text-align: left;
 }
 
 .modern-table th {
   background: #f1f5f9;
-  padding: 14px;
-  text-align: left;
+  padding: 16px;
+  font-size: 0.85rem;
+  color: #475569;
 }
 
 .modern-table td {
-  padding: 14px;
-  border-bottom: 1px solid #eee;
+  padding: 16px;
+  border-bottom: 1px solid #f1f5f9;
 }
 
-.modern-table tr:hover {
-  background: #f9fafb;
-}
-
-/* Status badges */
+/* Status Badges */
 .status {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-.New { background: #e0f2fe; color: #0284c7; }
-.Assigned { background: #fef9c3; color: #ca8a04; }
-.Resolved { background: #dcfce7; color: #16a34a; }
-.Closed { background: #e5e7eb; color: #374151; }
+.New { background: #dbeafe; color: #1e40af; }
+.Assigned { background: #fef3c7; color: #92400e; }
+.Resolved { background: #dcfce7; color: #166534; }
 
-/* ===== ANALYTICS ===== */
-.chart-grid {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  flex-wrap: nowrap;   /* 🔥 IMPORTANT */
-}
-
-.chart-card {
-  flex: 1;
-  max-width: 500px;
-  min-width: 350px;
-}
-
-/* ===== BUTTON ===== */
+/* ===== BUTTONS ===== */
 button {
-  background: #4f46e5;
+  background: var(--primary);
   color: white;
   border: none;
-  padding: 10px 14px;
-  border-radius: 8px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 500;
   cursor: pointer;
+  transition: opacity 0.2s;
 }
 
-button:hover {
-  opacity: 0.9;
-}
-.container {
+button:hover { opacity: 0.85; }
+
+.btn-delete { background: #ef4444; margin-left: 8px; }
+.btn-edit { background: #6366f1; }
+/* Container for the page */
+.analytics-section {
+  width: 100%;
   max-width: 1200px;
-  margin: auto;
 }
-.dashboard {
+
+.page-title {
+  margin-bottom: 30px;
+  color: #1e293b;
+}
+
+/* The Magic Fix: Side-by-Side Flexbox */
+.chart-grid {
   display: flex;
-  flex-direction: column;
-  align-items: center;  /* centers whole section */
+  flex-direction: row; /* Force horizontal */
+  justify-content: space-between;
+  gap: 25px;
+  width: 100%;
+  flex-wrap: wrap; /* Allows stacking only on small mobile screens */
+}
+
+/* Individual Card Styling */
+.chart-card {
+  background: white;
+  flex: 1; /* Makes both cards take equal width */
+  min-width: 400px; /* Prevents them from getting too skinny */
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.chart-card h3 {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
+/* Ensures ResponsiveContainer has a base to fill */
+.chart-wrapper {
+  width: 100%;
+  height: 300px;
+}
+/* Feedback Buttons Container */
+.feedback-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+/* Base button style to keep them neat */
+.feedback-buttons button {
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+/* Specific Green for Yes */
+.btn-yes {
+  background: #dcfce7; /* Light green background */
+  color: #15803d;      /* Dark green text */
+}
+
+.btn-yes:hover:not(:disabled) {
+  background: #22c55e; /* Solid green on hover */
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Specific Red for No */
+.btn-no {
+  background: #fee2e2; /* Light red background */
+  color: #b91c1c;      /* Dark red text */
+}
+
+.btn-no:hover:not(:disabled) {
+  background: #ef4444; /* Solid red on hover */
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Disabled state handling */
+.feedback-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+/* Base Layout */
+.app-layout {
+  display: flex;
+  background: #f2f5f7;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 240px; /* Sidebar width on desktop */
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Admin Mode (No Sidebar) */
+.admin-mode .main-content {
+  margin-left: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* ===== MOBILE RESPONSIVE QUERIES ===== */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column; /* Stack sidebar on top of content */
+  }
+
+  .sidebar {
+    width: 100% !important;
+    height: auto !important;
+    position: relative !important;
+    padding: 15px !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important; /* Remove margin on mobile */
+    padding: 20px 10px;
+  }
+
+  /* Dashboard Cards stack 2x2 or 1x1 */
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+  }
+
+  /* Analytics charts stack vertically */
+  .chart-grid {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  .chart-card {
+    width: 100% !important;
+    min-width: unset !important;
+  }
+
+  /* Make tables scrollable horizontally */
+  .table-container {
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+  }
+
+  /* Adjust headings for smaller screens */
+  h1 {
+    font-size: 1.5rem;
+  }
 }
