@@ -47,6 +47,7 @@ useEffect(() => {
           </h1>
           
           <select 
+            value={status}
             onChange={(e) => filterTickets(e.target.value)}
             style={{ 
               padding: "8px 16px", 
