@@ -1,32 +1,48 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 import Sidebar from "./Sidebar";
 import Dashboard from "./Dashboard";
 import Tickets from "./Tickets";
 import Analytics from "./Analytics";
 import NewTicket from "./NewTicket";
+import Admin from "./Admin";
+import AdminLogin from "./AdminLogin";
 
-function App() {
+function AppContent({ auth, setAuth }) {
+  const location = useLocation();
+  const isAdminRoute = location.pathname === "/admin";
+
   return (
-    <BrowserRouter>
-      <div style={{ display: "flex", background: "#f2f5f7", minHeight: "100vh" }}>
-        
-        {/* Sidebar */}
-        <Sidebar />
+    /* We use classNames instead of hardcoded inline styles for margins */
+    <div className={`app-layout ${isAdminRoute ? "admin-mode" : ""}`}>
+      
+      {!isAdminRoute && <Sidebar />}
 
-        {/* Main Content */}
-        <div className="main-content">
-          <div className="container">
+      <main className="main-content">
+        <div className="container">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/new-ticket" element={<NewTicket />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route
+              path="/admin"
+              element={auth ? <Admin /> : <AdminLogin setAuth={setAuth} />}
+            />
           </Routes>
         </div>
-        </div>
+      </main>
+    </div>
+  );
+}
 
-      </div>
+function App() {
+  const [auth, setAuth] = useState(localStorage.getItem("adminAuth") === "true");
+
+  return (
+    <BrowserRouter>
+      <AppContent auth={auth} setAuth={setAuth} />
     </BrowserRouter>
   );
 }
