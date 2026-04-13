@@ -31,6 +31,9 @@ function Tickets() {
   };
 
   load();
+    // ✅ ADD THIS LINE
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
 }, [status]);
 
   useEffect(() => {
