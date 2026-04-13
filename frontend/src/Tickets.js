@@ -16,26 +16,17 @@ function Tickets() {
     }
   };
 
-  useEffect(() => {
-    const load = async () => {
-      const r = await fetch("https://ai-ticketing-1.onrender.com/tickets");
-      const data = await r.json();
-  
-      setAllTickets(data);
-  
-      if (status === "All") {
-        setTickets(data);
-      } else {
-        setTickets(data.filter(t => t.status === status));
-      }
-    };
+useEffect(() => {
+  const load = async () => {
+    const r = await fetch("https://ai-ticketing-1.onrender.com/tickets");
+    const data = await r.json();
 
-    load();
+    setAllTickets(data);
+    setTickets(data);
+  };
 
-  // ✅ ADD THIS LINE
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-
-}, [status]);
+  load();
+}, []);
   useEffect(() => {
     const interval = setInterval(() => {
       fetch("https://ai-ticketing-1.onrender.com/escalate");
