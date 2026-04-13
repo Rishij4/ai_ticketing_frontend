@@ -6,6 +6,17 @@ function Tickets() {
   const [allTickets, setAllTickets] = useState([]);
   const [status, setStatus] = useState("All");
 
+  const filterTickets = (value) => {
+    setStatus(value);
+
+    if (value === "All") {
+      setTickets(allTickets);
+    } else {
+      setTickets(allTickets.filter(t => t.status === value));
+    }
+  };
+
+  useEffect(() => {
   const load = async () => {
     const r = await fetch("https://ai-ticketing-1.onrender.com/tickets");
     const data = await r.json();
@@ -19,19 +30,8 @@ function Tickets() {
     }
   };
 
-  const filterTickets = (value) => {
-    setStatus(value);
-
-    if (value === "All") {
-      setTickets(allTickets);
-    } else {
-      setTickets(allTickets.filter(t => t.status === value));
-    }
-  };
-
-  useEffect(() => {
-    load();
-  }, [load]);
+  load();
+}, [status]);
 
   useEffect(() => {
     const interval = setInterval(() => {
